@@ -40,6 +40,17 @@ const Translator = {
           this.languages[lang] = doc;
         })
       );
+    } else if (this._env() === 'node') {
+      console.log('dew');
+      await Promise.all(
+        languages.map(async (lang) => {
+          let result = require('fs').readFileSync(
+            `./${folderName}/${lang}.json`,
+            'utf8'
+          );
+          this.languages[lang] = JSON.parse(result);
+        })
+      );
     }
   },
   t(literal) {
@@ -49,4 +60,6 @@ const Translator = {
     return a;
   },
 };
+
+//module.exports = Translator;
 export default Translator;
