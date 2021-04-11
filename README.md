@@ -1,6 +1,6 @@
 # Translator-js
 
-🌍Easy to use and light-weight JavaScript translator
+🌍 Easy to use and light-weight JavaScript translator
 
 ## Index
 
