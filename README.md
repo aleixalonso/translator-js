@@ -1,4 +1,4 @@
-# translator-js
+# Translator-js
 
 Easy to use and light-weight JavaScript translator
 
@@ -21,14 +21,14 @@ Easy to use and light-weight JavaScript translator
 
 ### Client Side
 
-```
-import Translator from "./translator-js/src/translator.js";
+```js
+import Translator from './translator-js/src/translator.js';
 ```
 
 ### Node.js
 
 (Coming Soon)
 
-```
+```js
 npm i ....
 ```
