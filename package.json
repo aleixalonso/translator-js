@@ -1,0 +1,6 @@
+{
+  "name": "@aleixalonso/translator",
+  "version": "1.0.0",
+  "description": "Simple and easy to use JavaScript translator.",
+  "main": "src/translator.js"
+}
