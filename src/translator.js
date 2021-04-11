@@ -53,11 +53,30 @@ const Translator = {
       );
     }
   },
-  t(literal) {
+  t(literal, variables = {}) {
     let json = this.languages[this.config.currentLanguage];
-    let a = literal.split('.').reduce((obj, i) => (obj ? obj[i] : null), json);
-    a = a || literal;
-    return a;
+    let translation = literal
+      .split('.')
+      .reduce((obj, i) => (obj ? obj[i] : null), json);
+    if (translation && Object.keys(variables).length !== 0) {
+      const variableRegExp = new RegExp('{([^}]+)}', 'g');
+      let interpolated = translation;
+      let currentMatch = variableRegExp.exec(translation);
+      while (currentMatch !== null) {
+        const [placeholder, replacementKey] = currentMatch;
+        const replacement = variables[replacementKey.trim()];
+        if (replacement !== undefined) {
+          interpolated = interpolated.replace(
+            placeholder,
+            replacement.toString()
+          );
+        }
+        currentMatch = variableRegExp.exec(translation);
+      }
+      translation = interpolated;
+    }
+    translation = translation || literal;
+    return translation;
   },
 };
 
