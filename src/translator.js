@@ -53,6 +53,11 @@ const Translator = {
       );
     }
   },
+  changeLanguage(lang) {
+    if (this.config.allLanguages.includes(lang)) {
+      this.config.currentLanguage = lang;
+    }
+  },
   t(literal, variables = {}) {
     let json = this.languages[this.config.currentLanguage];
     let translation = literal
