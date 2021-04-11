@@ -4,7 +4,7 @@ const Translator = {
   defaultConfig() {
     return {
       currentLanguage: 'en',
-      allLanguages: ['en', 'es'],
+      allLanguages: [],
       folderName: 'languages',
     };
   },
@@ -63,6 +63,25 @@ const Translator = {
     let translation = literal
       .split('.')
       .reduce((obj, i) => (obj ? obj[i] : null), json);
+
+    if (!translation && this.config.preferredLanguages) {
+      const { preferredLanguages, currentLanguage } = this.config;
+      const otherLanguages = preferredLanguages.filter(
+        (lang) => lang !== currentLanguage
+      );
+      console.log(otherLanguages);
+      for (let lang of otherLanguages) {
+        let newJson = this.languages[lang];
+        let newTranslation = literal
+          .split('.')
+          .reduce((obj, i) => (obj ? obj[i] : null), newJson);
+        if (newTranslation) {
+          translation = newTranslation;
+          break;
+        }
+      }
+    }
+
     if (translation && Object.keys(variables).length !== 0) {
       const variableRegExp = new RegExp('{([^}]+)}', 'g');
       let interpolated = translation;
@@ -80,6 +99,7 @@ const Translator = {
       }
       translation = interpolated;
     }
+
     translation = translation || literal;
     return translation;
   },
